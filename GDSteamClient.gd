@@ -1,3 +1,4 @@
+#REMEMBER YOU MUST BE RUNNING THE STEAM CLIENT BEFORE RUNNING THIS EXAMPLE iN GODOTSTEAM!!
 extends Node #put this Node somewhere in the main scene so that it'll run when you startup the example. Feel free to put it anywhere else, but it needs the Steam startup bits that this example calls in global.gd
 
 var timer = 0
@@ -15,7 +16,7 @@ func _ready():
 	_connect_Steam_Signals("network_connection_status_changed", "_networkConnectionChange") #GodotSteam receives a Godot signal whenever the connection status changes. Here, we connect that signal to the function _networkConnectionChange() below
 	Steam.initRelayNetworkAccess() #Because we are using Steam's Peer-to-Peer relay network to handle our packets, we need to call this function first and wait until Steam's relay network is ready for us (we check using Steam.getRelayNetworkStatus() below)
 	#The connection method outlined here leverages the Steam Relay network's ability to punchthrough NATs and firewalls and ip routing without you having to do any of that!	
-	Steam.setIdentitySteamID64("server", 76561199493174690) #Steam ID of Steam account that's currently running on C++ server
+	Steam.setIdentitySteamID64("server", 76561199491175681) #<- CHANGE THIS VALUE TO WHAT YOU NEED!  Steam ID of Steam account that's currently running on C++ server (I don't know whose Steam ID this is, so don't spam it with traffic. I randomly came up with it)
 	#GodotSteam will make an internal dictionary and record the above steam ID under the key of "server". All you need is the string identifier, but it might help to remember that it's actually a dictionary key that stores the true connection identity data
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
