@@ -43,9 +43,9 @@ void CallBackClass::ConnectionStatusChange( SteamNetConnectionStatusChangedCallb
     {
         cout << "Connecting" << endl;
         connectionToClient = pCallback->m_hConn;
-        SteamNetworkingSockets()->AcceptConnection(connectionToClient);
+        SteamNetworkingSockets()->AcceptConnection(connectionToClient);  //The client doesn't need to accept the connection. Only the server does. Once we accept this connection here, the client will automatically see the connection status change on their end.
         SteamNetworkingSockets()->SendMessageToConnection(connectionToClient, thisServerSteamIDAsString.c_str(), thisServerSteamIDAsString.size(), k_nSteamNetworkingSend_Reliable, nullptr); //can also replace k_nSteamNetworkingSend_Reliable with k_nSteamNetworkingSend_Unreliable. Reliable is TCP-like (guaranteed delivery + packets arriving in correct order) using UDP packets. Unreliable is fire-and-forget UDP.
-
+        //Steam's SpaceWar example sends more info than just the server's ID string to the client as I do here, but the point is you need to start sending things immediately after accepting the connection to the client so that the connection doesn't timeout or get blocked.
     }
     else if (pCallback->m_info.m_eState == k_ESteamNetworkingConnectionState_Connected)
     {
@@ -76,7 +76,7 @@ int main()
     cout << "Steamworks active." << endl;
     //cout << "Connection Method: PEER TO PEER" << endl;
 
-    SteamNetworkingUtils()->InitRelayNetworkAccess(); //Steam API recommends you run this first and wait a bit if you're using Peer to Peer
+    SteamNetworkingUtils()->InitRelayNetworkAccess(); //Steam API recommends you run this first and wait a bit if you're using Peer to Peer connections like we are
     std::this_thread::sleep_for(std::chrono::nanoseconds( 4000000000 ));  //wait 4 seconds to give Steam time to spool up the InitRelayNetworkAccess line above
     CallBackClass* callbackHolder = new CallBackClass;  //creating an instance of this class starts the ConnectionStatusChange() callBack function above that will throw when a connection is received. This MUST be created after SteamAPI_Init() is done
     callbackHolder->listenSocket = SteamNetworkingSockets()->CreateListenSocketP2P(0,0,nullptr);
