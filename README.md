@@ -1,7 +1,7 @@
 # GodotSteamClientToCPlusPlusServer
 
 Example of how to get a GodotSteam client to send/receive packets with a server running C++ (using the C++ Steam SDK) <br />
-Uses Steam's NetworkingSockets and Steam's Peer-to-peer connections over the Steam Data Relay network.<br />
+Uses Steam's NetworkingSockets and Steam's Peer-to-peer connections over the Steam Data Relay network. I *think* this is the most ideal case of how Steam wants us to do server/client communication in the future, as using IP addresses in Steam's new networking API is a mess.<br />
 <br />
 FOR THE CLIENT:<br />
 -Get the pre-compiled GodotSteam editor (https://github.com/CoaguCo-Industries/GodotSteam/releases/tag/v4.4)<br />
