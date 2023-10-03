@@ -1,3 +1,5 @@
+#This is the client side of the networking example. Put this script into an empty Node that you created in the Main scene of the GodotSteam example project. (Also, of course, you must run the example project with some form of GodotSteam)
+
 #REMEMBER YOU MUST BE RUNNING THE STEAM CLIENT BEFORE RUNNING THIS EXAMPLE iN GODOTSTEAM!!
 extends Node #put this Node somewhere in the main scene so that it'll run when you startup the example. Feel free to put it anywhere else, but it needs the Steam startup bits that this example calls in global.gd
 
@@ -46,7 +48,7 @@ func _process(delta):
 				weAreDoneSendingData = true
 				dataStringToSend = "/quit"  #the server is looking for this exact phrase in order to close the connection (see main.cpp to understand the server's code)
 			print("Sending '" + dataStringToSend + "' to server...")
-			var dataToSend:PackedByteArray = dataStringToSend.to_utf8_buffer() #convert string to PackedByteArray
+			var dataToSend:PackedByteArray = dataStringToSend.to_utf8_buffer() #IF YOU ARE USING GODOT 3.X, THEN CHANGE THIS TO PoolByteArray!!! #convert string to PackedByteArray
 			var sendResult = Steam.sendMessageToConnection(serverConnectionHandle,dataToSend,8) #8 is the send reliable flag, use 0 if you want unreliable packets.
 			print("Send result: " + str(sendResult)) #a printout of 1 means OK. All of the possible results are here:  https://partner.steamgames.com/doc/api/steam_api  , look for the EResult table
 		
