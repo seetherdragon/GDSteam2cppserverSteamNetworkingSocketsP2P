@@ -107,7 +107,7 @@ int main()
                 }
                 output_data[message_size] = '\0';  //This is my thought on how to handle the fact that our Godot client code is sending us string data. It seems to work in testing.
                 string output_data_as_str = output_data;  //Because of the above line, we can just dumbly assign the parsed&copied data as a string without fear of safety issues at this point.
-                shouldWeQuit = (output_data_as_str.compare("/quit")==0); //the GodotSteam example client is coded to send us "/quit" when it's done with the connection. This is how we know to stop listening and close the connection if we're not using connectionMethod == "MESSAGES" (SteanNetworkingMessages does connections in the background without us handling them, so the connection will just timeout and close automatically)
+                shouldWeQuit = (output_data_as_str == "/quit"); //the GodotSteam example client is coded to send us "/quit" when it's done with the connection. This is how we know to stop listening and close the connection if we're not using connectionMethod == "MESSAGES" (SteanNetworkingMessages does connections in the background without us handling them, so the connection will just timeout and close automatically)
                 string serverReceivedStr = "Server received: " + output_data_as_str;
                 cout << serverReceivedStr << endl;
 
